@@ -1,5 +1,58 @@
+//loading
+window.addEventListener("load", function () {
+    setTimeout(() => {
+      const loader = document.querySelector(".loader-container");
+      loader.classList.add("fade-out"); 
+    }, 3000); 
+    });
 
-const animeSchedule = [
+//scroll
+window.addEventListener("scroll", function () {
+    var navbar = document.querySelector(".navbar");
+    if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+    } else {
+        navbar.classList.remove("scrolled");
+    }
+});
+
+//hero
+document.addEventListener("DOMContentLoaded", function () {
+    let index = 0; 
+    const slides = document.querySelectorAll('.slider');
+    const titles = ["Naruto", "Demon Slayer", "One Piece"];
+    const descriptions = [
+        "Naruto, Hokage olma hayali kuran genç bir ninja hakkında bir hikayedir.",
+        "İblis Keserler ve iblislerin inanılmaz savaşını anlatır.",
+        "Luffy ve tayfasının efsanevi hazine One Piece’i arayışını konu alır.",
+    ];
+
+    function changeSlide() {
+        // Önce tüm slaytları görünmez yap
+        slides.forEach((slide, i) => {
+            slide.style.opacity = '0';
+        });
+
+        // Sıradaki slaytı görünür yap
+        slides[index].style.opacity = '1';
+
+        // Başlığı ve açıklamayı değiştir
+        document.getElementById('film-title').textContent = titles[index];
+        document.getElementById('film-description').textContent = descriptions[index];
+
+        // Sonraki slayta geç
+        index = (index + 1) % slides.length;
+    }
+
+    // Sayfa yüklendiğinde hemen bir kez çalıştır
+    changeSlide();
+
+    // 3 saniyede bir çalıştırmak için setInterval kullan
+    setInterval(changeSlide, 3000);
+});
+
+// takvim
+ const animeSchedule = [
     { animeAdi: "One Piece", bolumNo: 1092, yayınTarihi: "2025-02-04", saat: "10:00", image: "images/one.jpeg" },
     { animeAdi: "Jujutsu Kaisen", bolumNo: 38, yayınTarihi: "2025-02-09", saat: "22:00", image: "images/juju.jpeg" },
     { animeAdi: "Attack on Titan", bolumNo: "Final", yayınTarihi: "2025-03-01", saat: "20:30", image: "images/aks.jpeg" },
@@ -33,50 +86,3 @@ function displayAnimeSchedule() {
 // Sayfa yüklendiğinde çalıştır
 document.addEventListener("DOMContentLoaded", displayAnimeSchedule);
 
-let index = 0; 
-const slides = document.querySelectorAll('.slider');
-const titles = ["Naruto","Demon Slayer", "One Piece"];
-const descriptions = [
-    "Naruto, Hokage olma hayali kuran genç bir ninja hakkında bir hikayedir.",
-    "İblis Keserler ve iblislerin inanılmaz savaşını anlatır.",
-    "Luffy ve tayfasının efsanevi hazine One Piece’i arayışını konu alır.",
-];
-
-function changeSlide() {
-    slides.forEach((slide, i) => {
-        slide.style.opacity = (i === index) ? '1' : '0';
-    });
-    document.getElementById('film-title').textContent = titles[index];
-    document.getElementById('film-description').textContent = descriptions[index];
-    index = (index + 1) % slides.length;
-}
-
-// Sayfa yüklendiğinde changeSlide fonksiyonunu hemen çağır
-window.onload = function() {
-    changeSlide();
-    setInterval(changeSlide, 3000);
-};
-
-  /* Navbar */
-AOS.init();
-gsap.from("#navbar", { duration: 1, y: -50, opacity: 0, ease: "power2.out" });
-gsap.from(".hero-content", { duration: 1, x: -100, opacity: 0, ease: "power2.out", delay: 0.5 });
-gsap.from(".anime-card", { duration: 1, scale: 0.8, opacity: 0, stagger: 0.3, ease: "power2.out" });
-
-window.addEventListener("scroll", function () {
-    var navbar = document.getElementById("navbar");
-    if (window.scrollY > 50) {
-        navbar.style.backgroundColor = "black";
-    } else {
-        navbar.style.backgroundColor = "transparent";
-    }
-});
-
-window.addEventListener("scroll", function() {
-    var navbar = document.getElementById("navbar");
-    if (window.scrollY > 50) {
-        navbar.classList.add("scrolled");
-    } else {
-        navbar.classList.remove("scrolled");
-    }
-});
